@@ -22,7 +22,7 @@ type HomeScreenState = {
 };
 
 const DEFAULT_PAGE = 0;
-const TEN_SECONDS = 1000000;
+const TEN_SECONDS = 10000;
 const FIVE_MILISECONDS = 500;
 
 class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
