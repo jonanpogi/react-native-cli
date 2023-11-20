@@ -1,4 +1,3 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import React, { Component } from 'react';
 import { ActivityIndicator, Alert, FlatList, StyleSheet } from 'react-native';
@@ -7,11 +6,7 @@ import PostItem from '../components/PostItem';
 import PostItemEmptyPlaceholder from '../components/PostItemEmptyPlaceholder';
 import PostItemSearchInput from '../components/PostItemSearchInput';
 import PostItemSeparator from '../components/PostItemSeparator';
-import RootStackParamList from '../types/routes';
-
-type HomeScreenProps = {
-  navigation: StackNavigationProp<RootStackParamList, 'HomeScreen'>;
-};
+import { withNavigation, NavigationInjectedProps } from 'react-navigation';
 
 type HomeScreenState = {
   posts: any[];
@@ -25,13 +20,13 @@ const DEFAULT_PAGE = 0;
 const TEN_SECONDS = 10000;
 const FIVE_MILISECONDS = 500;
 
-class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
+class HomeScreen extends Component<NavigationInjectedProps, HomeScreenState> {
   cancelToken = axios.CancelToken.source();
-  interval: NodeJS.Timeout | undefined;
+  interval: any | undefined;
   pauseInterval: boolean = false;
-  searchTimeout: NodeJS.Timeout | undefined;
+  searchTimeout: any | undefined;
 
-  constructor(props: HomeScreenProps) {
+  constructor(props: NavigationInjectedProps) {
     super(props);
 
     this.state = {
@@ -169,6 +164,7 @@ class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
     <PostItemSearchInput
       searchText={this.state.searchText}
       handleSearch={this.handleSearch}
+      testID="search-input"
     />
   );
 
@@ -187,8 +183,9 @@ class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
 
   render = () => {
     return (
-      <AppSafeAreaView>
+      <AppSafeAreaView testID="home-screen">
         <FlatList
+          testID="flat-list"
           data={this.state.postsCopy}
           renderItem={this.renderItem}
           keyExtractor={(_, index) => index.toString()}
@@ -200,7 +197,9 @@ class HomeScreen extends Component<HomeScreenProps, HomeScreenState> {
           onEndReachedThreshold={0}
           onEndReached={this.onEndReached}
         />
-        {this.state.loading && <ActivityIndicator size={'large'} />}
+        {this.state.loading && (
+          <ActivityIndicator size={'large'} testID="activity-indicator" />
+        )}
       </AppSafeAreaView>
     );
   };
@@ -212,4 +211,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default withNavigation(HomeScreen);

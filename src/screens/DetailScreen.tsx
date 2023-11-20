@@ -17,9 +17,9 @@ class DetailScreen extends Component<DetailsScreenProps> {
 
   render = () => {
     return (
-      <AppSafeAreaView>
+      <AppSafeAreaView testID="details-screen">
         <ScrollView style={styles.container}>
-          <Button title="Go back" onPress={this.goBack} />
+          <Button title="Go back" onPress={this.goBack} testID="back-button" />
           <Text>{this.props.route.params.post}</Text>
         </ScrollView>
       </AppSafeAreaView>

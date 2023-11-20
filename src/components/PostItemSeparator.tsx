@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 class PostItemSeparator extends Component {
   render = () => {
-    return <View style={styles.container} />;
+    return <View style={styles.container} testID="item-separator" />;
   };
 }
 

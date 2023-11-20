@@ -23,6 +23,7 @@ class PostItem extends Component<PostItemProps> {
 
     return (
       <TouchableOpacity
+        testID="touchable-opacity"
         onPress={() => goToDetail(post)}
         style={styles.container}>
         <Text>Title: {title}</Text>

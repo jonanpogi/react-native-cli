@@ -1,10 +1,10 @@
 import React, { memo, Component } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
 type PostItemSearchInputProps = {
   searchText: string;
   handleSearch: (text: string) => void;
-};
+} & TextInputProps;
 
 class PostItemSearchInput extends Component<PostItemSearchInputProps> {
   constructor(props: PostItemSearchInputProps) {
@@ -12,17 +12,16 @@ class PostItemSearchInput extends Component<PostItemSearchInputProps> {
   }
 
   render = () => {
-    const { searchText, handleSearch } = this.props;
+    const { searchText, handleSearch, ...otherProps } = this.props;
 
     return (
-      <>
-        <TextInput
-          style={styles.inputContainer}
-          placeholder="Search author and title here..."
-          value={searchText}
-          onChangeText={handleSearch}
-        />
-      </>
+      <TextInput
+        {...otherProps}
+        style={styles.inputContainer}
+        placeholder="Search author and title here..."
+        value={searchText}
+        onChangeText={handleSearch}
+      />
     );
   };
 }
